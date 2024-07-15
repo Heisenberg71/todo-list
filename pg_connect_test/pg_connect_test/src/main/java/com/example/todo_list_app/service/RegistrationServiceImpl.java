@@ -16,6 +16,10 @@ public class RegistrationServiceImpl implements RegistrationService {
     @Override
     public RegistrationResponse registerUser(RegistrationRequest registrationRequest) {
 
+        if(!registrationRequest.getPassword().equals(registrationRequest.getConfirmPassword())) {
+            throw new RuntimeException("Passwords do not match.");
+        }
+
         UserEntity userEntity = UserEntity.builder()
                 .username(registrationRequest.getUsername())
                 .email(registrationRequest.getEmail())
